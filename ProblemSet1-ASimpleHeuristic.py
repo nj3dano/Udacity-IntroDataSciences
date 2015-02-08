@@ -6,7 +6,7 @@ dak 2/4/17 Problem Set 1 - A simple Heuristic
 
 import numpy
 import pandas
-#import statsmodels.api as sm
+import statsmodels.api as sm
 
 def simple_heuristic(file_path):
     '''
@@ -80,12 +80,6 @@ def simple_heuristic(file_path):
  
 # I download the data set locally from:
 # http://www.kaggle.com/c/titanic-gettingStarted/data?train.csv
-# At first, I set the file_path as the full path name 
-# file_path='C:/Users/dak/Udacity-IntroDataSciences/train.csv'
-# but the read above is reading using relative path and even though
-# my working directory seemed right, it gave an IOError on read until
-# I just passed in the file name rather than the full path.  The file
-# does exist in my working directory
-file_path="train.csv"
+file_path="C:/Users/dak/Documents/Udacity.IntroDataSciences/train.csv"
 result = simple_heuristic(file_path)
 print result
