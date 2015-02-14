@@ -68,7 +68,20 @@ def predictions(weather_turnstile):
     # OLS = Ordinary Least Squares OSL (Y, X)
     model = sm.OLS(values,features)
     prediction = model.fit()
-    prediction = prediction.predict(features)
+    #print prediction.summary()
     
+    # model.fit().predict wants a DataFrame where the columns have the 
+    # same names as the predictors
+    prediction = prediction.predict(features)
+   
     # Your R^2 value is: 0.48518596312. Good job!
     return prediction
+
+filename="C:/Users/dak/Documents/Udacity.IntroDataSciences/turnstile_data_master_with_weather.csv"
+turnstile = pandas.read_csv(filename) 
+result = predictions(turnstile)
+# print result
+
+#[ 3311.6983259   3581.29824061  3850.89815531 ...,
+#   802.6589933   802.6589933    802.6589933 ]
+
