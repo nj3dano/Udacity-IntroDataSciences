@@ -34,16 +34,30 @@ def mann_whitney_plus_means(turnstile_weather):
     You can look at the final turnstile weather data at the link below:
     https://www.dropbox.com/s/meyki2wl9xfa7yk/turnstile_data_master_with_weather.csv
     '''
-    
-    ### YOUR CODE HERE ###
-        ### YOUR CODE HERE ###
+ 
     with_rain = turnstile_weather['ENTRIESn_hourly'][turnstile_weather.rain == 1]
     without_rain = turnstile_weather['ENTRIESn_hourly'][turnstile_weather.rain == 0]
-   
+    print "records with rain", len(with_rain)
+    print "records without rain", len(without_rain)
+    
+    # is the data normal, scipy shapiro test
+    print "shapiro result", (scipy.stats.shapiro(turnstile_weather["ENTRIESn_hourly"]))
+    print "shapiro with rain result", (scipy.stats.shapiro(with_rain))
+    print "shapiro without rain result", (scipy.stats.shapiro(without_rain))
+    
+    # is the data normal, scipy normaltest
+    (k, pvalue) = scipy.stats.normaltest(turnstile_weather["ENTRIESn_hourly"])
+    print "pvalue for ENTRIESn_hourly", pvalue
+    (k, pvalue) = scipy.stats.normaltest(with_rain)
+    print "pvalue for with_rain", pvalue
+    (k, pvalue) = scipy.stats.normaltest(without_rain)
+    print "pvalue for without _rain", pvalue
+    print "if pvalue M 0.05, then it is not normal distribution"
+    
+    # run the Mann Whitney U test
     with_rain_mean = np.mean(with_rain)
     without_rain_mean = np.mean(without_rain)
-    
-    U, p = scipy.stats.mannwhitneyu(with_rain, without_rain)
+    U, p = scipy.stats.mannwhitneyu(with_rain, without_rain)  
     
     #(1105.4463767458733, 1090.278780151855, 1924409167.0, 0.024999912793489721)
     return with_rain_mean, without_rain_mean, U, p # leave this line for the grader
