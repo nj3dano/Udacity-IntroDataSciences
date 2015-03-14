@@ -48,14 +48,30 @@ def entries_histogram(turnstile_weather):
     
     # DataFrame.hist, hist is a function for a dataframe not a series
     # DataFrame.hist() plots histograms of the columns on multiple subplots
-    plt.figure()
-    turnstile_weather['ENTRIESn_hourly'][turnstile_weather.rain == 1].hist()
-    turnstile_weather['ENTRIESn_hourly'][turnstile_weather.rain == 0].hist()
-     
+    #plt.figure()
+    #turnstile_weather['ENTRIESn_hourly'][turnstile_weather.rain == 1].hist()
+    #turnstile_weather['ENTRIESn_hourly'][turnstile_weather.rain == 0].hist()
+    #plt.legend() 
+    
+    # use this logic to get the  labels printed
+    ax = turnstile_weather[turnstile_weather.rain == 0]['ENTRIESn_hourly'].plot(kind='hist', 
+                                                                          bins = 30, 
+                                                                          label='No Rain', 
+                                                                          alpha = 0.5)
+
+    ax = turnstile_weather[turnstile_weather.rain == 1]['ENTRIESn_hourly'].plot(kind='hist', 
+                                                                          bins = 30, 
+                                                                          label='Rain',
+                                                                          alpha = 0.5)
+    ax.legend()
+    ax.set_ylabel('Frequency')
+    ax.set_xlabel('ENTRIESn_hourly')
+    ax.set_title('ENTRIESn_hourly by rain and no rain')    
+        
     return plt
 
 file_path="C:/Users/dak/Documents/Udacity.IntroDataSciences/turnstile_data_master_with_weather.csv"    
 turnstile = pandas.read_csv(file_path) 
-entries_histogram(turnstile) 
+print entries_histogram(turnstile) 
 
 
