@@ -3,12 +3,15 @@
 Created on Sat Feb 14 11:59:44 2015
 
 @author: dak
+
+
 """
 
 import numpy as np
 import scipy
 import matplotlib.pyplot as plt
 import sys
+from ggplot import *
 
 def compute_r_squared(data, predictions):
     '''
@@ -30,3 +33,4 @@ def compute_r_squared(data, predictions):
                         (np.sum((data - (np.mean(data)))**2)) )
     
     return r_squared
+    
