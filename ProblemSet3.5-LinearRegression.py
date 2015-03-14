@@ -64,7 +64,6 @@ def gradient_descent(features, values, theta, alpha, num_iterations):
         mySummation = np.dot( (Y - hXi), features )
         theta = theta + ((alpha/m) * (mySummation))
         
-    # return theta, pandas.Series(cost_history)
     return theta, pandas.Series(cost_history)
 
 def predictions(dataframe):
@@ -95,17 +94,20 @@ def predictions(dataframe):
     If you receive a "server has encountered an error" message, that means you are 
     hitting the 30-second limit that's placed on running your program. Try using a 
     smaller number for num_iterations if that's the case.
-    
+    features = dataframe[['rain', 'precipi', 'Hour', 'meantempi']]
     If you are using your own algorithm/models, see if you can optimize your code so 
     that it runs faster.
     '''
     # Select Features (try different features!)
     features = dataframe[['rain', 'precipi', 'Hour', 'meantempi']]
     #features = dataframe[['thunder', 'fog', 'TIMEn', 'maxtempi']]
+    #features=weather_turnstile[['rain','fog','thunder','meandewpti','meanwindspdi','precipi','Hour','meantempi','meanpressurei']]
     
     # Add UNIT to features using dummy variables
     dummy_units = pandas.get_dummies(dataframe['UNIT'], prefix='unit')
     features = features.join(dummy_units)
+    #print features.head(10)
+    #print "features is length ", len(features)
     
     # Values
     values = dataframe['ENTRIESn_hourly']
@@ -129,12 +131,12 @@ def predictions(dataframe):
                                                             theta_gradient_descent, 
                                                             alpha, 
                                                             num_iterations)
-    
+    # print theta_gradient_descent
     plot = None
     # -------------------------------------------------
     # Uncomment the next line to see your cost history
     # -------------------------------------------------
-    # plot = plot_cost_history(alpha, cost_history)
+    plot = plot_cost_history(alpha, cost_history)
     # 
     # Please note, there is a possibility that plotting
     # this in addition to your calculation will exceed 
@@ -164,6 +166,11 @@ def plot_cost_history(alpha, cost_history):
 
 
 
-#file_path="C:/Users/dak/Documents/Udacity.IntroDataSciences/turnstile_data_master_with_weather.csv"    
-#turnstile = pandas.read_csv(file_path) 
-# call functions
+file_path="C:/Users/dak/Documents/Udacity.IntroDataSciences/turnstile_data_master_with_weather.csv"    
+turnstile = pandas.read_csv(file_path) 
+#print turnstile.head(5)
+predictions, plot =  predictions(turnstile)
+print plot
+print predictions
+
+#Your r^2 value is 0.463968815042
