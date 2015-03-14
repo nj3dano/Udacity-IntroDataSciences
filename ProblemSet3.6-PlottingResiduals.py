@@ -31,11 +31,10 @@ def plot_residuals(turnstile_weather, predictions):
     # determines the area (not necessarily the height if the bins aren't of
     # equal width) of each bar.  EQUAL WIDTH left to right
     ##########################################################################
-    #  If bins=5, for example, it will use 5 bins of equal width spread between
+    # If bins=5, for example, it will use 5 bins of equal width spread between
     # the minimum input value and the maximum input value
     ##########################################################################  
-    
-    
+        
     # turnstile_weather[...] is the observed, original observed hourly data
     # turnstile_weather['ENTRIESn_hourly']
     
