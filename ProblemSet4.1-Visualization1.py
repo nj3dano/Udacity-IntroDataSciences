@@ -6,6 +6,7 @@ This is a temporary script file.
 """
 from pandas import *
 from ggplot import *
+import pandasql
 
 def plot_weather_data(turnstile_weather):
     '''
@@ -42,9 +43,22 @@ def plot_weather_data(turnstile_weather):
        
     # add up the entries for each station
     grouped = turnstile_weather.groupby('UNIT', as_index=False).sum()
-      
-    # get a smaller set of the data    
-    groupedSmaller=grouped.head(20)
+    #print grouped
+    print grouped.describe()
+    
+    # which station has the max entries
+    myresult = grouped['ENTRIESn_hourly'].argmax()
+    #print "max result is ",myresult
+    print "MAX row 159 is",grouped.ix[myresult,:]
+    
+    # which station has the min entries
+    myresult = grouped['ENTRIESn_hourly'].argmin()
+    #print "min  is ",myresult
+    print "MIN row 447 is",grouped.ix[myresult,:]
+       
+    # get a smaller set of the dat (or not)  
+    #groupedSmaller=grouped.head(20)
+    groupedSmaller=grouped
     
     # stat='bar' is a count of cases in each group
     # stat='identity' is the values in a column of the data frame
