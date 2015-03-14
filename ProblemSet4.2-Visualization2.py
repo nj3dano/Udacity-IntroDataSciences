@@ -40,16 +40,28 @@ def plot_weather_data(turnstile_weather):
 
     # average exits hourly
     # pull out only those two fields
-    # this prints 131951 rows of data, two colums, hour and exists
+    # this prints 131951 rows of data, two columns, hour and exits
     turnstile_weather = turnstile_weather[['Hour','EXITSn_hourly']]
     #print turnstile_weather
          
     # counts on the Y axis
-    # this prints 23 entries, one per hour and the average of exits
-    # for that hour
+    # this prints 23 entries
+    # one per hour and the average of exits for that hour
     grouped = turnstile_weather.groupby('Hour', as_index=False).mean()
+    print grouped.describe()
     print grouped
-       
+    
+    
+    # which hour has the max average exits
+    myresult = grouped['EXITSn_hourly'].argmax()
+    print "max result is ",myresult
+    print "MAX row is",grouped.ix[myresult,:]
+    
+    # which hpur has the min average exits
+    myresult = grouped['EXITSn_hourly'].argmin()
+    print "min  is ",myresult
+    print "MIN row is",grouped.ix[myresult,:]    
+    
     # stat='bar' is a count of cases in each group
     # stat='identity' is the values in a column of the data frame
     
