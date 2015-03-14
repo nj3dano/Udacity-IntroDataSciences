@@ -9,6 +9,8 @@ import numpy as np
 import pandas
 import scipy
 import statsmodels.api as sm
+import matplotlib.pyplot as plt
+import statsmodels.graphics as smgraphics
 
 """
 In this optional exercise, you should complete the function called 
@@ -56,6 +58,7 @@ def predictions(weather_turnstile):
     
     # Select Features (try different features!)
     features=weather_turnstile[['rain','fog','thunder','meandewpti','meanwindspdi','precipi','Hour','meantempi','meanpressurei']]
+    #features = weather_turnstile[['rain', 'precipi', 'Hour', 'meantempi']]
     
     # UNIT is the location of the turnstile, not integer type 
     # getDummies Convert categorical variable into dummy/indicator variables
@@ -70,6 +73,12 @@ def predictions(weather_turnstile):
     prediction = model.fit()
     #print prediction.summary()
     
+    
+    #fig, ax = plt.subplots()
+    #sm.graphics.plot_fit(prediction, 0, ax=ax)
+    #plt.show()  
+    
+        
     # model.fit().predict wants a DataFrame where the columns have the 
     # same names as the predictors
     prediction = prediction.predict(features)
