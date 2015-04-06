@@ -9,6 +9,29 @@ import numpy as np
 import pandas
 import matplotlib.pyplot as plt
 
+def entries_histogram2(df):
+   
+
+    bins = 150
+    alpha = 0.5
+    xmin = ymin = 0
+    xmax = 6000
+    ymax = 45000
+
+    plt.figure()
+
+    df['ENTRIESn_hourly'][df['rain'] == 0].hist(bins=bins, alpha=alpha)
+    df['ENTRIESn_hourly'][df['rain'] == 1].hist(bins=bins, alpha=alpha)
+
+    plt.axis([xmin, xmax, ymin, ymax])
+    plt.suptitle('Histogram of ENTRIESn_hourly')
+    plt.xlabel('ENTRIESn_hourly')
+    plt.ylabel('Frequency')
+    plt.legend(['No rain', 'Rain'])
+
+    return plt
+    
+
 def entries_histogram(turnstile_weather):
     '''
     Before we perform any analysis, it might be useful to take a
@@ -55,15 +78,16 @@ def entries_histogram(turnstile_weather):
     
     # use this logic to get the  labels printed
     ax = turnstile_weather[turnstile_weather.rain == 0]['ENTRIESn_hourly'].plot(kind='hist', 
-                                                                          bins = 30, 
+                                                                          bins = 150, 
                                                                           label='No Rain', 
                                                                           alpha = 0.5)
 
     ax = turnstile_weather[turnstile_weather.rain == 1]['ENTRIESn_hourly'].plot(kind='hist', 
-                                                                          bins = 30, 
+                                                                          bins = 150, 
                                                                           label='Rain',
                                                                           alpha = 0.5)
     ax.legend()
+    plt.axis([0,6000, 0, 50000])
     ax.set_ylabel('Frequency')
     ax.set_xlabel('ENTRIESn_hourly')
     ax.set_title('ENTRIESn_hourly by rain and no rain')    
@@ -73,5 +97,13 @@ def entries_histogram(turnstile_weather):
 file_path="C:/Users/dak/Documents/Udacity.IntroDataSciences/turnstile_data_master_with_weather.csv"    
 turnstile = pandas.read_csv(file_path) 
 print entries_histogram(turnstile) 
+print entries_histogram2(turnstile) 
+
+
+
+
+
+
+
 
 
