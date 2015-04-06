@@ -31,13 +31,21 @@ def mytry(turnstile_weather):
     #######################################################    
     # first plot, by hour
     #######################################################
+    #plotA = ggplot(turnstile_weather, aes('Hour', 'ENTRIESn_hourly', fill ='rain', color='rain'))\
+       # + scale_color_manual(values=['black', 'red']) \
+       # + geom_histogram() \
+       # + xlab("Which hour of the day") \
+       # + ylab("Entries") \
+       # + ggtitle("Ridership by hour - Rain in black: No Rain in Red" )
+           
     plotA = ggplot(turnstile_weather, aes('Hour', 'ENTRIESn_hourly', fill ='rain', color='rain'))\
+        + scale_color_manual(name="legend title",values=['black', 'red']) \
         + geom_histogram() \
-        + scale_color_manual(values=['black', 'red']) \
         + xlab("Which hour of the day") \
-        + ggtitle("Ridership by hour - Rain in black: No Rain in Red" )\
-        + ylab("Entries")
+        + ylab("Entries") \
+        + ggtitle("Ridership by hour - Rain in black: No Rain in Red" )
     print plotA
+    
     
     #######################################################    
     # second histogram, entries rain not rain
@@ -54,11 +62,12 @@ def mytry(turnstile_weather):
     ####################################################### 
     # third plot spread out, entries rain not rain
     ####################################################### 
-    rainData = {'rain':Series(with_rain),
+    rainData = {'rain': Series(with_rain),
                 'without_rain': Series(without_rain)}
     rdf = DataFrame(rainData) 
     rdf['rain'] = rdf['rain'].fillna(0)
     rdf['without_rain'] = rdf['without_rain'].fillna(0)  
+    
        
     # combine it all into one line if you want
     #    rdf = DataFrame({
@@ -85,7 +94,7 @@ def mytry(turnstile_weather):
     ####################################################### 
     plotD = ggplot(aes(x ='value', fill='variable', color='variable'), data = rdf) \
       + scale_color_manual(name="legend title",values=['black', 'red']) \
-      + geom_histogram( alpha=0.5, binwidth=400, position="dodge") \
+      + geom_histogram( alpha=0.5, binwidth=2000, position="dodge") \
       + scale_y_log() \
       + ylab("Frequency of occurrence") \
       + xlab("Entries") \
